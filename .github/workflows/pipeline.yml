@@ -169,26 +169,26 @@ jobs:
         run: |
           echo "Deploy PROD" 
   
-  deploy-azure:
-    needs: build  
-    name: Deploy-azure
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'    
-    environment:
-      name: AZURE-PRO        
-      url: https://fiapapp.azurewebsites.net/
-    steps:
-       - name: Download JAR
-         uses: actions/download-artifact@v4
-         with:
-           name: artifact
-           path: target/   
-       - name: DeployAzure   
-         uses: azure/webapps-deploy@v2
-         with:
-            app-name: FiapApp
-            publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} 
-            package: '${{ github.workspace }}/target/*.jar'
+  # deploy-azure:
+  #   needs: build  
+  #   name: Deploy-azure
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'    
+  #   environment:
+  #     name: AZURE-PRO        
+  #     url: https://fiapapp.azurewebsites.net/
+  #   steps:
+  #      - name: Download JAR
+  #        uses: actions/download-artifact@v4
+  #        with:
+  #          name: artifact
+  #          path: target/   
+  #      - name: DeployAzure   
+  #        uses: azure/webapps-deploy@v2
+  #        with:
+  #           app-name: FiapApp
+  #           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} 
+  #           package: '${{ github.workspace }}/target/*.jar'
 
   deploy-aws:
     needs: build  
@@ -219,8 +219,8 @@ jobs:
           environment_name: devopsfiap-on-env1
           version_label: ${{github.SHA}}
           region: us-east-1
-          deployment_package: ./target/demo-0.0.2.7-SNAPSHOT.jar 
-  
+          deployment_package: ./target/demo-0.0.2.7-SNAPSHOT.jar
+
   deploy-azure:
     needs: build
     name: Deploy-Azure
